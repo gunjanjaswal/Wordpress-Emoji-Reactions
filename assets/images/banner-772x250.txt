@@ -1,0 +1,4 @@
+This is a placeholder for the plugin banner image.
+For a real plugin submission, you would need to create a 772x250 pixel banner image.
+The banner should showcase the plugin's functionality with emoji reactions.
+Recommended: Use colorful emojis on a clean background with the plugin name prominently displayed.

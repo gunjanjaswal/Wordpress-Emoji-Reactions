@@ -1,0 +1,183 @@
+# Copyright (C) 2025 Gunjan Jaswaal
+# This file is distributed under the GPL v2 or later.
+msgid ""
+msgstr ""
+"Project-Id-Version: WP Emoji Reactions 1.0.0\n"
+"Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/wp-emoji-reactions\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"POT-Creation-Date: 2025-07-07T12:00:00+05:30\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"X-Generator: WP-CLI 2.7.0\n"
+"X-Domain: wp-emoji-reactions\n"
+
+#. Plugin Name of the plugin
+msgid "WP Emoji Reactions"
+msgstr ""
+
+#. Plugin URI of the plugin
+msgid "https://gunjanjaswal.me/wp-emoji-reactions"
+msgstr ""
+
+#. Description of the plugin
+msgid "Add colorful emoji reactions to your WordPress posts and pages, similar to Facebook reactions."
+msgstr ""
+
+#. Author of the plugin
+msgid "Gunjan Jaswaal"
+msgstr ""
+
+#. Author URI of the plugin
+msgid "https://gunjanjaswal.me"
+msgstr ""
+
+#: admin/class-wp-emoji-reactions-admin.php:92
+msgid "WP Emoji Reactions Settings"
+msgstr ""
+
+#: admin/class-wp-emoji-reactions-admin.php:93
+msgid "Emoji Reactions"
+msgstr ""
+
+#: admin/class-wp-emoji-reactions-admin.php:118
+msgid "General Settings"
+msgstr ""
+
+#: admin/class-wp-emoji-reactions-admin.php:125
+msgid "Display Position"
+msgstr ""
+
+#: admin/class-wp-emoji-reactions-admin.php:133
+msgid "Post Types"
+msgstr ""
+
+#: admin/class-wp-emoji-reactions-admin.php:141
+msgid "Emoji Settings"
+msgstr ""
+
+#: admin/class-wp-emoji-reactions-admin.php:148
+msgid "Enabled Emojis"
+msgstr ""
+
+#: admin/class-wp-emoji-reactions-admin.php:169
+msgid "Configure how emoji reactions should be displayed on your site."
+msgstr ""
+
+#: admin/class-wp-emoji-reactions-admin.php:178
+msgid "Select which emoji reactions should be available to your visitors."
+msgstr ""
+
+#: admin/class-wp-emoji-reactions-admin.php:189
+msgid "After Content"
+msgstr ""
+
+#: admin/class-wp-emoji-reactions-admin.php:190
+msgid "Floating (Fixed Position)"
+msgstr ""
+
+#: admin/class-wp-emoji-reactions-admin.php:192
+msgid "Choose where to display the emoji reactions."
+msgstr ""
+
+#: admin/class-wp-emoji-reactions-admin.php:210
+msgid "Select which post types should display emoji reactions."
+msgstr ""
+
+#: admin/class-wp-emoji-reactions-admin.php:251
+msgid "Select which emoji reactions should be available to your visitors."
+msgstr ""
+
+#: admin/partials/wp-emoji-reactions-admin-display.php:17
+msgid "Allow visitors to react to your content with colorful emoji reactions, similar to Facebook reactions."
+msgstr ""
+
+#: admin/partials/wp-emoji-reactions-admin-display.php:28
+msgid "Preview"
+msgstr ""
+
+#: admin/partials/wp-emoji-reactions-admin-display.php:39
+msgid "Reactions:"
+msgstr ""
+
+#: admin/partials/wp-emoji-reactions-admin-display.php:54
+msgid "This is how emoji reactions will appear on your site. The actual appearance may vary based on your theme."
+msgstr ""
+
+#: admin/partials/wp-emoji-reactions-admin-display.php:58
+msgid "Reaction Statistics"
+msgstr ""
+
+#: admin/partials/wp-emoji-reactions-admin-display.php:68
+msgid "Total reactions: %d"
+msgstr ""
+
+#: admin/partials/wp-emoji-reactions-admin-display.php:71
+msgid "Most reacted post: %s"
+msgstr ""
+
+#: admin/partials/wp-emoji-reactions-admin-display.php:76
+msgid "Most used reaction: %s %s"
+msgstr ""
+
+#: admin/partials/wp-emoji-reactions-admin-display.php:79
+msgid "No reaction data available yet."
+msgstr ""
+
+#: public/class-wp-emoji-reactions-public.php:57
+msgid "You have already reacted to this post."
+msgstr ""
+
+#: public/class-wp-emoji-reactions-public.php:58
+msgid "Your reaction has been added!"
+msgstr ""
+
+#: public/class-wp-emoji-reactions-public.php:59
+msgid "An error occurred. Please try again."
+msgstr ""
+
+#: public/class-wp-emoji-reactions-public.php:232
+msgid "You reacted with"
+msgstr ""
+
+#: public/class-wp-emoji-reactions-public.php:259
+msgid "Security check failed."
+msgstr ""
+
+#: public/class-wp-emoji-reactions-public.php:266
+msgid "Invalid data."
+msgstr ""
+
+#: public/class-wp-emoji-reactions-public.php:271
+msgid "Post not found."
+msgstr ""
+
+#: public/class-wp-emoji-reactions-public.php:277
+msgid "Invalid reaction."
+msgstr ""
+
+#: public/class-wp-emoji-reactions-public.php:308
+msgid "Database error."
+msgstr ""
+
+#: public/class-wp-emoji-reactions-public.php:315
+msgid "Reaction saved successfully."
+msgstr ""
+
+#: public/class-wp-emoji-reactions-public.php:330
+msgid "Security check failed."
+msgstr ""
+
+#: public/class-wp-emoji-reactions-public.php:336
+msgid "Invalid post ID."
+msgstr ""
+
+#: public/partials/wp-emoji-reactions-public-display.php:16
+msgid "Reactions:"
+msgstr ""
+
+#: public/partials/wp-emoji-reactions-public-display.php:30
+msgid "You reacted with"
+msgstr ""
