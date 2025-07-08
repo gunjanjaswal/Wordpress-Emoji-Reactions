@@ -1,6 +1,10 @@
 /**
  * All of the JavaScript for your public-facing functionality should be
  * included in this file.
+ *
+ * @package    WP_Emoji_Reactions
+ * @subpackage WP_Emoji_Reactions/public/js
+ * @since      1.0.0
  */
 (function($) {
     'use strict';

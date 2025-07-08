@@ -46,6 +46,17 @@ WP Emoji Reactions allows your visitors to react to your content with colorful e
 3. Go to Settings > Emoji Reactions to configure the plugin
 4. Choose which emoji reactions to enable and where to display them
 
+== Privacy ==
+
+This plugin does not collect or share any data with external services.
+
+The following information is stored in your WordPress database:
+* IP addresses of users who react to posts (for preventing multiple reactions from the same user)
+* User IDs of logged-in users who react to posts
+* Reaction choices made by users
+
+This data is stored solely on your server and is not transmitted elsewhere.
+
 == Frequently Asked Questions ==
 
 = Can visitors react multiple times to the same post? =

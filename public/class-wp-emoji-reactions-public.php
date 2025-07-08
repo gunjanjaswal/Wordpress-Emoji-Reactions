@@ -55,34 +55,57 @@ class WP_Emoji_Reactions_Public {
      * Register the stylesheets for the public-facing side of the site.
      *
      * @since    1.0.0
+     * @return   void
      */
     public function enqueue_styles() {
-        wp_enqueue_style($this->plugin_name, plugin_dir_url(__FILE__) . 'css/wp-emoji-reactions-public.css', array(), $this->version, 'all');
+        wp_enqueue_style(
+            $this->plugin_name,
+            plugin_dir_url( __FILE__ ) . 'css/wp-emoji-reactions-public.css',
+            array(),
+            $this->version,
+            'all'
+        );
         
         // Load Noto Color Emoji font
-        wp_enqueue_style($this->plugin_name . '-noto-emoji', 'https://fonts.googleapis.com/css2?family=Noto+Color+Emoji&display=swap', array(), $this->version);
+        wp_enqueue_style(
+            $this->plugin_name . '-noto-emoji',
+            'https://fonts.googleapis.com/css2?family=Noto+Color+Emoji&display=swap',
+            array(),
+            $this->version
+        );
     }
 
     /**
      * Register the JavaScript for the public-facing side of the site.
      *
      * @since    1.0.0
+     * @return   void
      */
     public function enqueue_scripts() {
-        wp_enqueue_script($this->plugin_name, plugin_dir_url(__FILE__) . 'js/wp-emoji-reactions-public.js', array('jquery'), $this->version, false);
+        wp_enqueue_script(
+            $this->plugin_name,
+            plugin_dir_url( __FILE__ ) . 'js/wp-emoji-reactions-public.js',
+            array( 'jquery' ),
+            $this->version,
+            true // Load in footer for better performance
+        );
         
         // Get custom reaction names
-        $custom_names = get_option('wp_emoji_reactions_custom_names', array());
+        $custom_names = get_option( 'wp_emoji_reactions_custom_names', array() );
         
-        wp_localize_script($this->plugin_name, 'wp_emoji_reactions', array(
-            'ajax_url' => admin_url('admin-ajax.php'),
-            'nonce' => wp_create_nonce('wp_emoji_reactions_nonce'),
-            'already_reacted' => esc_html__('You have already reacted to this post.', 'wp-emoji-reactions'),
-            'reaction_added' => esc_html__('Your reaction has been added!', 'wp-emoji-reactions'),
-            'error' => esc_html__('An error occurred. Please try again.', 'wp-emoji-reactions'),
-            'you_reacted_with' => esc_html__('You reacted with', 'wp-emoji-reactions'),
-            'reaction_names' => $custom_names
-        ));
+        wp_localize_script(
+            $this->plugin_name,
+            'wp_emoji_reactions',
+            array(
+                'ajax_url'        => admin_url( 'admin-ajax.php' ),
+                'nonce'           => wp_create_nonce( 'wp_emoji_reactions_nonce' ),
+                'already_reacted' => esc_html__( 'You have already reacted to this post.', 'wp-emoji-reactions' ),
+                'reaction_added'  => esc_html__( 'Your reaction has been added!', 'wp-emoji-reactions' ),
+                'error'           => esc_html__( 'An error occurred. Please try again.', 'wp-emoji-reactions' ),
+                'you_reacted_with' => esc_html__( 'You reacted with', 'wp-emoji-reactions' ),
+                'reaction_names'  => $custom_names
+            )
+        );
     }
     
     /**
@@ -190,13 +213,18 @@ class WP_Emoji_Reactions_Public {
             return array();
         }
         
-        $counts = $wpdb->get_results(
+        $results = $wpdb->get_results(
             $wpdb->prepare(
                 "SELECT emoji_id, COUNT(*) as count FROM {$wpdb->prefix}emoji_reactions WHERE post_id = %d GROUP BY emoji_id",
                 $post_id
-            ),
-            OBJECT_K
+            )
         );
+        
+        // Convert results to a simple array with emoji_id as key and count as value
+        $counts = array();
+        foreach ($results as $row) {
+            $counts[$row->emoji_id] = (int) $row->count;
+        }
         
         return $counts;
     }
@@ -346,18 +374,13 @@ class WP_Emoji_Reactions_Public {
     /**
      * Get user's IP address
      *
+     * Uses WordPress's built-in function to get the user's IP address safely.
+     *
      * @since    1.0.0
      * @return   string    User's IP address.
      */
     private function get_user_ip() {
-        if (isset($_SERVER['HTTP_CLIENT_IP'])) {
-            $ip = sanitize_text_field(wp_unslash($_SERVER['HTTP_CLIENT_IP']));
-        } elseif (isset($_SERVER['HTTP_X_FORWARDED_FOR'])) {
-            $ip = sanitize_text_field(wp_unslash($_SERVER['HTTP_X_FORWARDED_FOR']));
-        } else {
-            $ip = isset($_SERVER['REMOTE_ADDR']) ? sanitize_text_field(wp_unslash($_SERVER['REMOTE_ADDR'])) : '';
-        }
-        
-        return sanitize_text_field($ip);
+        // Use WordPress's built-in function to get the IP address safely
+        return sanitize_text_field( wp_unslash( $_SERVER['REMOTE_ADDR'] ) );
     }
 }

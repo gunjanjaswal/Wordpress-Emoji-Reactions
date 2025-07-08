@@ -1,6 +1,10 @@
 /**
  * All of the CSS for your public-facing functionality should be
  * included in this file.
+ *
+ * @package    WP_Emoji_Reactions
+ * @subpackage WP_Emoji_Reactions/public/css
+ * @since      1.0.0
  */
 
 .wp-emoji-reactions-container {

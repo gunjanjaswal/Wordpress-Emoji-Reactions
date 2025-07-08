@@ -122,14 +122,14 @@ class WP_Emoji_Reactions_Admin {
         
         add_settings_section(
             'wp_emoji_reactions_general_settings',
-            __('General Settings', 'wp-emoji-reactions'),
+            esc_html__('General Settings', 'wp-emoji-reactions'),
             array($this, 'general_settings_section_callback'),
             $this->plugin_name
         );
         
         add_settings_field(
             'wp_emoji_reactions_position',
-            __('Display Position', 'wp-emoji-reactions'),
+            esc_html__('Display Position', 'wp-emoji-reactions'),
             array($this, 'position_field_callback'),
             $this->plugin_name,
             'wp_emoji_reactions_general_settings'
@@ -137,7 +137,7 @@ class WP_Emoji_Reactions_Admin {
         
         add_settings_field(
             'wp_emoji_reactions_post_types',
-            __('Enable on Post Types', 'wp-emoji-reactions'),
+            esc_html__('Enable on Post Types', 'wp-emoji-reactions'),
             array($this, 'post_types_field_callback'),
             $this->plugin_name,
             'wp_emoji_reactions_general_settings'
@@ -145,7 +145,7 @@ class WP_Emoji_Reactions_Admin {
         
         add_settings_field(
             'wp_emoji_reactions_title_text',
-            __('Reactions Title Text', 'wp-emoji-reactions'),
+            esc_html__('Reactions Title Text', 'wp-emoji-reactions'),
             array($this, 'title_text_field_callback'),
             $this->plugin_name,
             'wp_emoji_reactions_general_settings'
