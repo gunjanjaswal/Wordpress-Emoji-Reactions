@@ -16,7 +16,7 @@
     <h1><?php echo esc_html(get_admin_page_title()); ?></h1>
     
     <div class="notice notice-info">
-        <p><?php esc_html_e('Allow visitors to react to your content with colorful emoji reactions, similar to Facebook reactions.', 'wp-emoji-reactions'); ?></p>
+        <p><?php esc_html_e('Allow visitors to react to your content with colorful emoji reactions, similar to Facebook reactions.', 'emojis-for-posts-and-pages'); ?></p>
     </div>
     
     <form method="post" action="options.php">
@@ -28,7 +28,7 @@
     </form>
     
     <div class="wp-emoji-reactions-preview">
-        <h2><?php esc_html_e('Preview', 'wp-emoji-reactions'); ?></h2>
+        <h2><?php esc_html_e('Preview', 'emojis-for-posts-and-pages'); ?></h2>
         <div class="preview-container">
             <?php
             $enabled_emojis = get_option('wp_emoji_reactions_enabled_emojis', array(
@@ -41,7 +41,7 @@
             ));
             
             echo '<div class="wp-emoji-reactions-container">';
-            echo '<div class="wp-emoji-reactions-title">' . esc_html__('Reactions:', 'wp-emoji-reactions') . '</div>';
+            echo '<div class="wp-emoji-reactions-title">' . esc_html__('Reactions:', 'emojis-for-posts-and-pages') . '</div>';
             echo '<div class="wp-emoji-reactions-buttons">';
             
             foreach ($enabled_emojis as $key => $emoji) {
@@ -55,11 +55,11 @@
             echo '</div>'; // .wp-emoji-reactions-container
             ?>
         </div>
-        <p class="description"><?php esc_html_e('This is how emoji reactions will appear on your site. The actual appearance may vary based on your theme.', 'wp-emoji-reactions'); ?></p>
+        <p class="description"><?php esc_html_e('This is how emoji reactions will appear on your site. The actual appearance may vary based on your theme.', 'emojis-for-posts-and-pages'); ?></p>
     </div>
     
     <div class="wp-emoji-reactions-stats">
-        <h2><?php esc_html_e('Statistics', 'wp-emoji-reactions'); ?></h2>
+        <h2><?php esc_html_e('Statistics', 'emojis-for-posts-and-pages'); ?></h2>
         <?php
         // Get cached statistics or fetch from database
         $stats = wp_cache_get( 'wp_emoji_reactions_admin_stats' );
@@ -131,17 +131,17 @@
         $most_used_emoji = $stats['most_used_emoji'];
             
         // Translators: %s is the total number of reactions
-        echo '<p>' . esc_html(sprintf(__('Total reactions: %s', 'wp-emoji-reactions'), esc_html($total_reactions))) . '</p>';
+        echo '<p>' . esc_html(sprintf(__('Total reactions: %s', 'emojis-for-posts-and-pages'), esc_html($total_reactions))) . '</p>';
         
         if ($most_reacted_post_id) {
             // Translators: %1$s is the post permalink, %2$s is the post title
-            echo '<p>' . wp_kses(sprintf(__('Most reacted post: <a href="%1$s" target="_blank">%2$s</a>', 'wp-emoji-reactions'), esc_url(get_permalink($most_reacted_post_id)), esc_html(get_the_title($most_reacted_post_id))), array('a' => array('href' => array(), 'target' => array()))) . '</p>';
+            echo '<p>' . wp_kses(sprintf(__('Most reacted post: <a href="%1$s" target="_blank">%2$s</a>', 'emojis-for-posts-and-pages'), esc_url(get_permalink($most_reacted_post_id)), esc_html(get_the_title($most_reacted_post_id))), array('a' => array('href' => array(), 'target' => array()))) . '</p>';
         }
         
         if ($most_used_emoji) {
             $emoji_display = isset($enabled_emojis[$most_used_emoji]) ? $enabled_emojis[$most_used_emoji] : '';
             // Translators: %1$s is the emoji symbol, %2$s is the reaction name
-            echo '<p>' . sprintf(esc_html__('Most used reaction: %1$s %2$s', 'wp-emoji-reactions'), esc_html($emoji_display), esc_html(ucfirst(str_replace('_', ' ', $most_used_emoji)))) . '</p>';
+            echo '<p>' . sprintf(esc_html__('Most used reaction: %1$s %2$s', 'emojis-for-posts-and-pages'), esc_html($emoji_display), esc_html(ucfirst(str_replace('_', ' ', $most_used_emoji)))) . '</p>';
         }
         ?>
     </div>

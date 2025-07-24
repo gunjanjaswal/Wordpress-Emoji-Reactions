@@ -99,10 +99,10 @@ class WP_Emoji_Reactions_Public {
             array(
                 'ajax_url'        => admin_url( 'admin-ajax.php' ),
                 'nonce'           => wp_create_nonce( 'wp_emoji_reactions_nonce' ),
-                'already_reacted' => esc_html__( 'You have already reacted to this post.', 'wp-emoji-reactions' ),
-                'reaction_added'  => esc_html__( 'Your reaction has been added!', 'wp-emoji-reactions' ),
-                'error'           => esc_html__( 'An error occurred. Please try again.', 'wp-emoji-reactions' ),
-                'you_reacted_with' => esc_html__( 'You reacted with', 'wp-emoji-reactions' ),
+                'already_reacted' => esc_html__( 'You have already reacted to this post.', 'emojis-for-posts-and-pages' ),
+                'reaction_added'  => esc_html__( 'Your reaction has been added!', 'emojis-for-posts-and-pages' ),
+                'error'           => esc_html__( 'An error occurred. Please try again.', 'emojis-for-posts-and-pages' ),
+                'you_reacted_with' => esc_html__( 'You reacted with', 'emojis-for-posts-and-pages' ),
                 'reaction_names'  => $custom_names
             )
         );
@@ -309,7 +309,7 @@ class WP_Emoji_Reactions_Public {
     public function handle_emoji_reaction() {
         // Verify nonce
         if (!isset($_POST['nonce']) || !wp_verify_nonce(sanitize_text_field(wp_unslash($_POST['nonce'])), 'wp_emoji_reactions_nonce')) {
-            wp_send_json_error(array('message' => esc_html__('Security check failed.', 'wp-emoji-reactions')));
+            wp_send_json_error(array('message' => esc_html__('Security check failed.', 'emojis-for-posts-and-pages')));
         }
         
         // Get post data
@@ -317,18 +317,18 @@ class WP_Emoji_Reactions_Public {
         $reaction = isset($_POST['reaction']) ? sanitize_text_field(wp_unslash($_POST['reaction'])) : '';
         
         if (!$post_id || !$reaction) {
-            wp_send_json_error(array('message' => esc_html__('Invalid data.', 'wp-emoji-reactions')));
+            wp_send_json_error(array('message' => esc_html__('Invalid data.', 'emojis-for-posts-and-pages')));
         }
         
         // Verify post exists
         if (!get_post($post_id)) {
-            wp_send_json_error(array('message' => esc_html__('Post not found.', 'wp-emoji-reactions')));
+            wp_send_json_error(array('message' => esc_html__('Post not found.', 'emojis-for-posts-and-pages')));
         }
         
         // Verify reaction is valid
         $enabled_emojis = get_option('wp_emoji_reactions_enabled_emojis', array());
         if (!isset($enabled_emojis[$reaction])) {
-            wp_send_json_error(array('message' => esc_html__('Invalid reaction.', 'wp-emoji-reactions')));
+            wp_send_json_error(array('message' => esc_html__('Invalid reaction.', 'emojis-for-posts-and-pages')));
         }
         
         // Get user info
@@ -371,7 +371,7 @@ class WP_Emoji_Reactions_Public {
         }
         
         if ( $result === false ) {
-            wp_send_json_error( array( 'message' => esc_html__( 'Database error.', 'wp-emoji-reactions' ) ) );
+            wp_send_json_error( array( 'message' => esc_html__( 'Database error.', 'emojis-for-posts-and-pages' ) ) );
         }
         
         // Clear caches related to this post and user
@@ -384,7 +384,7 @@ class WP_Emoji_Reactions_Public {
         $counts = $this->get_reaction_counts( $post_id );
         
         wp_send_json_success(array(
-            'message' => esc_html__('Reaction saved successfully.', 'wp-emoji-reactions'),
+            'message' => esc_html__('Reaction saved successfully.', 'emojis-for-posts-and-pages'),
             'counts' => $counts,
             'user_reaction' => $reaction
         ));
@@ -398,14 +398,14 @@ class WP_Emoji_Reactions_Public {
     public function get_emoji_reactions() {
         // Verify nonce
         if (!isset($_POST['nonce']) || !wp_verify_nonce(sanitize_text_field(wp_unslash($_POST['nonce'])), 'wp_emoji_reactions_nonce')) {
-            wp_send_json_error(array('message' => esc_html__('Security check failed.', 'wp-emoji-reactions')));
+            wp_send_json_error(array('message' => esc_html__('Security check failed.', 'emojis-for-posts-and-pages')));
         }
         
         // Get post ID
         $post_id = isset($_POST['post_id']) ? intval($_POST['post_id']) : 0;
         
         if (!$post_id) {
-            wp_send_json_error(array('message' => esc_html__('Invalid post ID.', 'wp-emoji-reactions')));
+            wp_send_json_error(array('message' => esc_html__('Invalid post ID.', 'emojis-for-posts-and-pages')));
         }
         
         // Get reaction counts

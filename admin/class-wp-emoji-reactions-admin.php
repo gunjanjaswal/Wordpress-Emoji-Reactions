@@ -76,8 +76,8 @@ class WP_Emoji_Reactions_Admin {
      */
     public function add_plugin_admin_menu() {
         add_options_page(
-            __('WP Emoji Reactions Settings', 'wp-emoji-reactions'),
-            __('Emoji Reactions', 'wp-emoji-reactions'),
+            __('WP Emoji Reactions Settings', 'emojis-for-posts-and-pages'),
+            __('Emoji Reactions', 'emojis-for-posts-and-pages'),
             'manage_options',
             $this->plugin_name,
             array($this, 'display_plugin_setup_page')
@@ -122,14 +122,14 @@ class WP_Emoji_Reactions_Admin {
         
         add_settings_section(
             'wp_emoji_reactions_general_settings',
-            esc_html__('General Settings', 'wp-emoji-reactions'),
+            esc_html__('General Settings', 'emojis-for-posts-and-pages'),
             array($this, 'general_settings_section_callback'),
             $this->plugin_name
         );
         
         add_settings_field(
             'wp_emoji_reactions_position',
-            esc_html__('Display Position', 'wp-emoji-reactions'),
+            esc_html__('Display Position', 'emojis-for-posts-and-pages'),
             array($this, 'position_field_callback'),
             $this->plugin_name,
             'wp_emoji_reactions_general_settings'
@@ -137,7 +137,7 @@ class WP_Emoji_Reactions_Admin {
         
         add_settings_field(
             'wp_emoji_reactions_post_types',
-            esc_html__('Enable on Post Types', 'wp-emoji-reactions'),
+            esc_html__('Enable on Post Types', 'emojis-for-posts-and-pages'),
             array($this, 'post_types_field_callback'),
             $this->plugin_name,
             'wp_emoji_reactions_general_settings'
@@ -145,7 +145,7 @@ class WP_Emoji_Reactions_Admin {
         
         add_settings_field(
             'wp_emoji_reactions_title_text',
-            esc_html__('Reactions Title Text', 'wp-emoji-reactions'),
+            esc_html__('Reactions Title Text', 'emojis-for-posts-and-pages'),
             array($this, 'title_text_field_callback'),
             $this->plugin_name,
             'wp_emoji_reactions_general_settings'
@@ -153,14 +153,14 @@ class WP_Emoji_Reactions_Admin {
         
         add_settings_section(
             'wp_emoji_reactions_emoji_settings',
-            __('Emoji Settings', 'wp-emoji-reactions'),
+            __('Emoji Settings', 'emojis-for-posts-and-pages'),
             array($this, 'emoji_settings_section_callback'),
             $this->plugin_name
         );
         
         add_settings_field(
             'wp_emoji_reactions_enabled_emojis',
-            __('Enabled Emojis', 'wp-emoji-reactions'),
+            __('Enabled Emojis', 'emojis-for-posts-and-pages'),
             array($this, 'emojis_field_callback'),
             $this->plugin_name,
             'wp_emoji_reactions_emoji_settings'
@@ -182,7 +182,7 @@ class WP_Emoji_Reactions_Admin {
      * @since    1.0.0
      */
     public function general_settings_section_callback() {
-        echo '<p>' . esc_html__('Configure how emoji reactions should be displayed on your site.', 'wp-emoji-reactions') . '</p>';
+        echo '<p>' . esc_html__('Configure how emoji reactions should be displayed on your site.', 'emojis-for-posts-and-pages') . '</p>';
     }
     
     /**
@@ -191,7 +191,7 @@ class WP_Emoji_Reactions_Admin {
      * @since    1.0.0
      */
     public function emoji_settings_section_callback() {
-        echo '<p>' . esc_html__('Select which emoji reactions should be available to your visitors.', 'wp-emoji-reactions') . '</p>';
+        echo '<p>' . esc_html__('Select which emoji reactions should be available to your visitors.', 'emojis-for-posts-and-pages') . '</p>';
     }
     
     /**
@@ -203,10 +203,10 @@ class WP_Emoji_Reactions_Admin {
         $position = get_option('wp_emoji_reactions_position', 'after_content');
         ?>
         <select name="wp_emoji_reactions_position" id="wp_emoji_reactions_position">
-            <option value="after_content" <?php selected($position, 'after_content'); ?>><?php esc_html_e('After Content', 'wp-emoji-reactions'); ?></option>
-            <option value="floating" <?php selected($position, 'floating'); ?>><?php esc_html_e('Floating (Fixed Position)', 'wp-emoji-reactions'); ?></option>
+            <option value="after_content" <?php selected($position, 'after_content'); ?>><?php esc_html_e('After Content', 'emojis-for-posts-and-pages'); ?></option>
+            <option value="floating" <?php selected($position, 'floating'); ?>><?php esc_html_e('Floating (Fixed Position)', 'emojis-for-posts-and-pages'); ?></option>
         </select>
-        <p class="description"><?php esc_html_e('Choose where to display the emoji reactions.', 'wp-emoji-reactions'); ?></p>
+        <p class="description"><?php esc_html_e('Choose where to display the emoji reactions.', 'emojis-for-posts-and-pages'); ?></p>
         <?php
     }
     
@@ -219,14 +219,14 @@ class WP_Emoji_Reactions_Admin {
         $post_types = get_post_types(array('public' => true), 'objects');
         $enabled_post_types = get_option('wp_emoji_reactions_post_types', array('post'));
         
-        echo '<p>' . esc_html__('Select which post types should display emoji reactions:', 'wp-emoji-reactions') . '</p>';
+        echo '<p>' . esc_html__('Select which post types should display emoji reactions:', 'emojis-for-posts-and-pages') . '</p>';
         
         foreach ($post_types as $post_type) {
             $checked = in_array($post_type->name, $enabled_post_types) ? 'checked="checked"' : '';
             echo '<label><input type="checkbox" name="wp_emoji_reactions_post_types[]" value="' . esc_attr($post_type->name) . '" ' . esc_attr($checked) . '> ' . esc_html($post_type->label) . '</label><br>';
         }
         
-        echo '<p class="description">' . esc_html__('Select which post types should display emoji reactions.', 'wp-emoji-reactions') . '</p>';
+        echo '<p class="description">' . esc_html__('Select which post types should display emoji reactions.', 'emojis-for-posts-and-pages') . '</p>';
     }
     
     /**
@@ -235,10 +235,10 @@ class WP_Emoji_Reactions_Admin {
      * @since    1.0.0
      */
     public function title_text_field_callback() {
-        $title_text = get_option('wp_emoji_reactions_title_text', __('Reactions:', 'wp-emoji-reactions'));
+        $title_text = get_option('wp_emoji_reactions_title_text', __('Reactions:', 'emojis-for-posts-and-pages'));
         
         echo '<input type="text" name="wp_emoji_reactions_title_text" value="' . esc_attr($title_text) . '" class="regular-text">';
-        echo '<p class="description">' . esc_html__('Customize the title text shown above reactions. Default: "Reactions:"', 'wp-emoji-reactions') . '</p>';
+        echo '<p class="description">' . esc_html__('Customize the title text shown above reactions. Default: "Reactions:"', 'emojis-for-posts-and-pages') . '</p>';
     }
     
     /**
@@ -289,12 +289,12 @@ class WP_Emoji_Reactions_Admin {
             echo '<span class="emoji-preview">' . esc_html($emoji) . '</span>';
             echo '<span class="emoji-name">' . esc_html($custom_name) . '</span>';
             echo '</label>';
-            echo '<input type="text" name="wp_emoji_reactions_custom_names[' . esc_attr($key) . ']" value="' . esc_attr($custom_name) . '" class="emoji-custom-name" placeholder="' . esc_attr__('Custom name', 'wp-emoji-reactions') . '">';
+            echo '<input type="text" name="wp_emoji_reactions_custom_names[' . esc_attr($key) . ']" value="' . esc_attr($custom_name) . '" class="emoji-custom-name" placeholder="' . esc_attr__('Custom name', 'emojis-for-posts-and-pages') . '">';
             echo '</div>';
         }
         echo '</div>';
         
-        echo '<p class="description">' . esc_html__('Select which emoji reactions should be available to your visitors. You can customize the display name for each reaction.', 'wp-emoji-reactions') . '</p>';
+        echo '<p class="description">' . esc_html__('Select which emoji reactions should be available to your visitors. You can customize the display name for each reaction.', 'emojis-for-posts-and-pages') . '</p>';
     }
     
     /**
@@ -398,7 +398,7 @@ class WP_Emoji_Reactions_Admin {
      */
     public function validate_title_text($input) {
         if (empty($input)) {
-            return __('Reactions:', 'wp-emoji-reactions');
+            return __('Reactions:', 'emojis-for-posts-and-pages');
         }
         
         return sanitize_text_field($input);
