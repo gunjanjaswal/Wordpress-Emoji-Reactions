@@ -202,19 +202,35 @@ class WP_Emoji_Reactions_Public {
      * @param    int       $post_id    The post ID.
      * @return   array     Reaction counts.
      */
-    private function get_reaction_counts($post_id) {
+    private function get_reaction_counts( $post_id ) {
+        // Check for cached data first
+        $cache_key = 'wp_emoji_reactions_counts_' . $post_id;
+        $counts = wp_cache_get( $cache_key );
+        
+        if ( false !== $counts ) {
+            return $counts;
+        }
+        
         global $wpdb;
         $table_name = $wpdb->prefix . 'emoji_reactions';
-        
         $counts = array();
         
         // Check if table exists
-        if ($wpdb->get_var($wpdb->prepare("SHOW TABLES LIKE %s", $table_name)) != $table_name) {
+        $table_exists = wp_cache_get( 'wp_emoji_reactions_table_exists' );
+        if ( false === $table_exists ) {
+            // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery -- Caching is implemented right after this call
+            $table_exists = $wpdb->get_var( $wpdb->prepare( "SHOW TABLES LIKE %s", $table_name ) ) === $table_name;
+            wp_cache_set( 'wp_emoji_reactions_table_exists', $table_exists, '', HOUR_IN_SECONDS );
+        }
+        
+        if ( ! $table_exists ) {
             return array();
         }
         
+        // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery -- Caching is implemented right after this query
         $results = $wpdb->get_results(
             $wpdb->prepare(
+                // phpcs:ignore WordPress.DB.PreparedSQL.InterpolatedNotPrepared -- Table name is hardcoded with prefix
                 "SELECT emoji_id, COUNT(*) as count FROM {$wpdb->prefix}emoji_reactions WHERE post_id = %d GROUP BY emoji_id",
                 $post_id
             )
@@ -222,9 +238,12 @@ class WP_Emoji_Reactions_Public {
         
         // Convert results to a simple array with emoji_id as key and count as value
         $counts = array();
-        foreach ($results as $row) {
+        foreach ( $results as $row ) {
             $counts[$row->emoji_id] = (int) $row->count;
         }
+        
+        // Cache the results for 5 minutes
+        wp_cache_set( $cache_key, $counts, '', 5 * MINUTE_IN_SECONDS );
         
         return $counts;
     }
@@ -236,26 +255,48 @@ class WP_Emoji_Reactions_Public {
      * @param    int       $post_id    The post ID.
      * @return   string|boolean    User's reaction or false if none.
      */
-    private function get_user_reaction($post_id) {
-        global $wpdb;
-        $table_name = $wpdb->prefix . 'emoji_reactions';
-        
-        // Check if table exists
-        if ($wpdb->get_var($wpdb->prepare("SHOW TABLES LIKE %s", $table_name)) != $table_name) {
-            return false;
-        }
-        
+    private function get_user_reaction( $post_id ) {
         $ip_address = $this->get_user_ip();
         $user_id = get_current_user_id();
         
+        // Generate a unique cache key based on post ID, IP address, and user ID
+        $cache_key = 'wp_emoji_reactions_user_' . $post_id . '_' . md5( $ip_address . '_' . $user_id );
+        $reaction = wp_cache_get( $cache_key );
+        
+        if ( false !== $reaction ) {
+            // Special case: we store 'none' in cache for no reaction
+            return $reaction === 'none' ? false : $reaction;
+        }
+        
+        global $wpdb;
+        $table_name = $wpdb->prefix . 'emoji_reactions';
+        
+        // Use the cached table exists check from get_reaction_counts
+        $table_exists = wp_cache_get( 'wp_emoji_reactions_table_exists' );
+        if ( false === $table_exists ) {
+            // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery -- Caching is implemented right after this call
+            $table_exists = $wpdb->get_var( $wpdb->prepare( "SHOW TABLES LIKE %s", $table_name ) ) === $table_name;
+            wp_cache_set( 'wp_emoji_reactions_table_exists', $table_exists, '', HOUR_IN_SECONDS );
+        }
+        
+        if ( ! $table_exists ) {
+            wp_cache_set( $cache_key, 'none', '', 5 * MINUTE_IN_SECONDS );
+            return false;
+        }
+        
+        // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery -- Caching is implemented right after this query
         $reaction = $wpdb->get_var(
             $wpdb->prepare(
+                // phpcs:ignore WordPress.DB.PreparedSQL.InterpolatedNotPrepared -- Table name is hardcoded with prefix
                 "SELECT emoji_id FROM {$wpdb->prefix}emoji_reactions WHERE post_id = %d AND (ip_address = %s OR (user_id > 0 AND user_id = %d)) LIMIT 1",
                 $post_id,
                 $ip_address,
                 $user_id
             )
         );
+        
+        // Cache the result for 5 minutes
+        wp_cache_set( $cache_key, $reaction ? $reaction : 'none', '', 5 * MINUTE_IN_SECONDS );
         
         return $reaction ? $reaction : false;
     }
@@ -300,13 +341,14 @@ class WP_Emoji_Reactions_Public {
         // Check if user already reacted
         $existing_reaction = $this->get_user_reaction($post_id);
         
-        if ($existing_reaction) {
+        if ( $existing_reaction ) {
             // Update existing reaction
+            // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery -- Cache is invalidated right after this query
             $result = $wpdb->update(
                 $table_name,
                 array(
                     'emoji_id' => $reaction,
-                    'reaction_time' => current_time('mysql')
+                    'reaction_time' => current_time( 'mysql' )
                 ),
                 array(
                     'post_id' => $post_id,
@@ -315,6 +357,7 @@ class WP_Emoji_Reactions_Public {
             );
         } else {
             // Insert new reaction
+            // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery -- Cache is invalidated right after this query
             $result = $wpdb->insert(
                 $table_name,
                 array(
@@ -322,17 +365,23 @@ class WP_Emoji_Reactions_Public {
                     'emoji_id' => $reaction,
                     'ip_address' => $ip_address,
                     'user_id' => $user_id,
-                    'reaction_time' => current_time('mysql')
+                    'reaction_time' => current_time( 'mysql' )
                 )
             );
         }
         
-        if ($result === false) {
-            wp_send_json_error(array('message' => esc_html__('Database error.', 'wp-emoji-reactions')));
+        if ( $result === false ) {
+            wp_send_json_error( array( 'message' => esc_html__( 'Database error.', 'wp-emoji-reactions' ) ) );
         }
         
+        // Clear caches related to this post and user
+        $cache_key_user = 'wp_emoji_reactions_user_' . $post_id . '_' . md5( $ip_address . '_' . $user_id );
+        $cache_key_counts = 'wp_emoji_reactions_counts_' . $post_id;
+        wp_cache_delete( $cache_key_user );
+        wp_cache_delete( $cache_key_counts );
+        
         // Get updated counts
-        $counts = $this->get_reaction_counts($post_id);
+        $counts = $this->get_reaction_counts( $post_id );
         
         wp_send_json_success(array(
             'message' => esc_html__('Reaction saved successfully.', 'wp-emoji-reactions'),
@@ -361,8 +410,6 @@ class WP_Emoji_Reactions_Public {
         
         // Get reaction counts
         $counts = $this->get_reaction_counts($post_id);
-        
-        // Get user's reaction
         $user_reaction = $this->get_user_reaction($post_id);
         
         wp_send_json_success(array(
@@ -374,13 +421,17 @@ class WP_Emoji_Reactions_Public {
     /**
      * Get user's IP address
      *
-     * Uses WordPress's built-in function to get the user's IP address safely.
-     *
      * @since    1.0.0
      * @return   string    User's IP address.
      */
     private function get_user_ip() {
-        // Use WordPress's built-in function to get the IP address safely
-        return sanitize_text_field( wp_unslash( $_SERVER['REMOTE_ADDR'] ) );
+        if (!empty($_SERVER['HTTP_CLIENT_IP'])) {
+            $ip = sanitize_text_field(wp_unslash($_SERVER['HTTP_CLIENT_IP']));
+        } elseif (!empty($_SERVER['HTTP_X_FORWARDED_FOR'])) {
+            $ip = sanitize_text_field(wp_unslash($_SERVER['HTTP_X_FORWARDED_FOR']));
+        } else {
+            $ip = isset($_SERVER['REMOTE_ADDR']) ? sanitize_text_field(wp_unslash($_SERVER['REMOTE_ADDR'])) : '';
+        }
+        return $ip;
     }
 }
