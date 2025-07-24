@@ -1,4 +1,4 @@
-# 😀 WP Emoji Reactions 👍
+# 😀 Emojis for Posts and Pages 👍
 
 ![WordPress Version](https://img.shields.io/badge/WordPress-5.0%2B-blue.svg)
 ![PHP Version](https://img.shields.io/badge/PHP-7.0%2B-purple.svg)
@@ -26,13 +26,13 @@
 ### From GitHub:
 
 1. Download the zip file from this repository
-2. Upload the `wp-emoji-reactions` folder to the `/wp-content/plugins/` directory
+2. Upload the `emojis-for-posts-and-pages` folder to the `/wp-content/plugins/` directory
 3. Activate the plugin through the 'Plugins' menu in WordPress
 4. Go to Settings > Emoji Reactions to configure the plugin
 
 ### From WordPress.org:
 
-1. Search for "WP Emoji Reactions" in the WordPress plugin repository
+1. Search for "Emojis for Posts and Pages" in the WordPress plugin repository
 2. Click "Install Now" and then "Activate"
 3. Go to Settings > Emoji Reactions to configure the plugin
 
