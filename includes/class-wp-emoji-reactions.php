@@ -56,12 +56,12 @@ class WP_Emoji_Reactions {
      * @since    1.0.0
      */
     public function __construct() {
-        if (defined('WP_EMOJI_REACTIONS_VERSION')) {
-            $this->version = WP_EMOJI_REACTIONS_VERSION;
+        if (defined('EMOJIS_FOR_POSTS_VERSION')) {
+            $this->version = EMOJIS_FOR_POSTS_VERSION;
         } else {
             $this->version = '1.0.0';
         }
-        $this->plugin_name = 'wp-emoji-reactions';
+        $this->plugin_name = 'emojis-for-posts-and-pages';
 
         $this->load_dependencies();
         $this->set_locale();
@@ -112,7 +112,9 @@ class WP_Emoji_Reactions {
     private function set_locale() {
 
         $plugin_i18n = new WP_Emoji_Reactions_i18n();
-
+        
+        // Since WordPress 4.6+, translations are automatically loaded for plugins on WordPress.org
+        // This hook is kept for backward compatibility with older WordPress versions
         $this->loader->add_action('plugins_loaded', $plugin_i18n, 'load_plugin_textdomain');
     }
 

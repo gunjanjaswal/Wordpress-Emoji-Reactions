@@ -23,16 +23,16 @@
 class WP_Emoji_Reactions_i18n {
 
     /**
-     * Load the plugin text domain for translation.
+     * Set up the plugin for translation.
+     *
+     * Note: As of WordPress 4.6+, translations are automatically loaded
+     * for plugins on WordPress.org, so this method is only needed for
+     * custom translation loading scenarios.
      *
      * @since    1.0.0
      */
     public function load_plugin_textdomain() {
-
-        load_plugin_textdomain(
-            'wp-emoji-reactions',
-            false,
-            dirname(dirname(plugin_basename(__FILE__))) . '/languages/'
-        );
+        // No action needed for WordPress.org hosted plugins
+        // WordPress will automatically load translations from wordpress.org/plugins/emojis-for-posts-and-pages/
     }
 }
