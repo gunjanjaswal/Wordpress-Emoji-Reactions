@@ -1,4 +1,4 @@
-=== WP Emoji Reactions ===
+=== Emojis for Posts and Pages ===
 Contributors: gunjanjaswal
 Donate link: https://gunjanjaswal.me/
 Tags: emoji, reactions, feedback, comments, social
@@ -13,7 +13,7 @@ Add colorful emoji reactions to your WordPress posts and pages, similar to Faceb
 
 == Description ==
 
-WP Emoji Reactions allows your visitors to react to your content with colorful emoji reactions, similar to Facebook's reaction system. This plugin adds a simple and intuitive reaction system to your posts, pages, or any custom post type.
+Emojis for Posts and Pages allows your visitors to react to your content with colorful emoji reactions, similar to Facebook's reaction system. This plugin adds a simple and intuitive reaction system to your posts, pages, or any custom post type.
 
 ### Features
 
@@ -41,7 +41,7 @@ WP Emoji Reactions allows your visitors to react to your content with colorful e
 
 == Installation ==
 
-1. Upload the `wp-emoji-reactions` folder to the `/wp-content/plugins/` directory
+1. Upload the `emojis-for-posts-and-pages` folder to the `/wp-content/plugins/` directory
 2. Activate the plugin through the 'Plugins' menu in WordPress
 3. Go to Settings > Emoji Reactions to configure the plugin
 4. Choose which emoji reactions to enable and where to display them
