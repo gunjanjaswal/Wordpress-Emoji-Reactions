@@ -432,11 +432,13 @@ class Emojfopo_Public {
      * @return   string    User IP address.
      */
     private function get_user_ip() {
-        if (!empty($_SERVER['HTTP_CLIENT_IP'])) {
+        $ip = '127.0.0.1'; // Default fallback IP
+        
+        if (isset($_SERVER['HTTP_CLIENT_IP']) && !empty($_SERVER['HTTP_CLIENT_IP'])) {
             $ip = sanitize_text_field(wp_unslash($_SERVER['HTTP_CLIENT_IP']));
-        } elseif (!empty($_SERVER['HTTP_X_FORWARDED_FOR'])) {
+        } elseif (isset($_SERVER['HTTP_X_FORWARDED_FOR']) && !empty($_SERVER['HTTP_X_FORWARDED_FOR'])) {
             $ip = sanitize_text_field(wp_unslash($_SERVER['HTTP_X_FORWARDED_FOR']));
-        } else {
+        } elseif (isset($_SERVER['REMOTE_ADDR'])) {
             $ip = sanitize_text_field(wp_unslash($_SERVER['REMOTE_ADDR']));
         }
         
