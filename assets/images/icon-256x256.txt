@@ -1,4 +1,0 @@
-This is a placeholder for the plugin icon image.
-For a real plugin submission, you would need to create a 256x256 pixel icon image.
-The icon should be simple, recognizable, and represent the emoji reactions functionality.
-Recommended: Use a colorful emoji or a simple reaction icon on a clean background.
