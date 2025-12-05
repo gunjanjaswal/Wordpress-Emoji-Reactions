@@ -21,13 +21,13 @@ if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
     <div class="emojfopo-title"><?php echo esc_html(get_option('emojfopo_title_text', esc_html__('Reactions:', 'emojis-for-posts-and-pages'))); ?></div>
     <?php endif; ?>
     <div class="emojfopo-buttons">
-        <?php foreach ($enabled_emojis as $key => $emoji) : ?>
-            <?php $count = isset($reaction_counts[$key]) ? $reaction_counts[$key] : 0; ?>
-            <?php $active_class = ($user_reaction === $key) ? 'active' : ''; ?>
-            <?php $custom_name = isset($custom_names[$key]) ? $custom_names[$key] : ucfirst(str_replace('_', ' ', $key)); ?>
-            <button class="emojfopo-reaction-button<?php echo esc_attr($user_reaction === $key ? ' active' : ''); ?>" data-reaction="<?php echo esc_attr($key); ?>" title="<?php echo esc_attr(isset($custom_names[$key]) ? $custom_names[$key] : ucfirst($key)); ?>">
-                <span class="emoji"><?php echo esc_html($emoji); ?></span>
-                <span class="count"><?php echo esc_html($count); ?></span>
+        <?php foreach ($enabled_emojis as $emojfopo_key => $emojfopo_emoji) : ?>
+            <?php $emojfopo_count = isset($reaction_counts[$emojfopo_key]) ? $reaction_counts[$emojfopo_key] : 0; ?>
+            <?php $emojfopo_active_class = ($user_reaction === $emojfopo_key) ? 'active' : ''; ?>
+            <?php $emojfopo_custom_name = isset($custom_names[$emojfopo_key]) ? $custom_names[$emojfopo_key] : ucfirst(str_replace('_', ' ', $emojfopo_key)); ?>
+            <button class="emojfopo-reaction-button<?php echo esc_attr($user_reaction === $emojfopo_key ? ' active' : ''); ?>" data-reaction="<?php echo esc_attr($emojfopo_key); ?>" title="<?php echo esc_attr(isset($custom_names[$emojfopo_key]) ? $custom_names[$emojfopo_key] : ucfirst($emojfopo_key)); ?>">
+                <span class="emoji"><?php echo esc_html($emojfopo_emoji); ?></span>
+                <span class="count"><?php echo esc_html($emojfopo_count); ?></span>
             </button>
         <?php endforeach; ?>
     </div>

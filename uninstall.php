@@ -14,13 +14,13 @@ if ( ! defined( 'WP_UNINSTALL_PLUGIN' ) ) {
 }
 
 // Clear all caches related to this plugin
-$cache_keys = array(
+$emojfopo_cache_keys = array(
     'emojfopo_table_exists',
     'emojfopo_admin_stats'
 );
 
-foreach ( $cache_keys as $key ) {
-    wp_cache_delete( $key );
+foreach ( $emojfopo_cache_keys as $emojfopo_key ) {
+    wp_cache_delete( $emojfopo_key );
 }
 
 // Also clear any post-specific caches
@@ -36,7 +36,7 @@ delete_option( 'emojfopo_custom_names' );
 
 // Delete database table
 global $wpdb;
-$table_name = $wpdb->prefix . 'emojfopo_reactions';
+$emojfopo_table_name = $wpdb->prefix . 'emojfopo_reactions';
 
 // phpcs:disable
 /*

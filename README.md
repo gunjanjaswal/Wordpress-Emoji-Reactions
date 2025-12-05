@@ -1,7 +1,7 @@
 # 😀 Emojis for Posts and Pages 👍
 
-![WordPress Version](https://img.shields.io/badge/WordPress-5.0%2B-blue.svg)
-![PHP Version](https://img.shields.io/badge/PHP-7.0%2B-purple.svg)
+![WordPress Version](https://img.shields.io/badge/WordPress-6.9%20tested-blue.svg)
+![PHP Version](https://img.shields.io/badge/PHP-7.4%2B-purple.svg)
 ![License](https://img.shields.io/badge/License-GPL%20v2-green.svg)
 
 > Add colorful emoji reactions to your WordPress posts and pages, similar to Facebook reactions.
@@ -19,7 +19,7 @@
 ## 📋 Requirements
 
 - WordPress 5.0 or higher
-- PHP 7.0 or higher
+- PHP 7.4 or higher
 
 ## 🚀 Installation
 
@@ -142,6 +142,23 @@ This plugin is licensed under the GPL v2 or later.
 If you find this plugin useful, consider buying me a coffee!
 
 [![Buy Me A Coffee](https://www.buymeacoffee.com/assets/img/custom_images/orange_img.png)](https://buymeacoffee.com/gunjanjaswal)
+
+## 📝 Changelog
+
+### Version 1.1.1
+- Fixed WordPress coding standards: Added proper prefixes to all global variables
+- Variable names now use 'emojfopo_' prefix for compliance
+- Improved code quality and WordPress.org plugin check compatibility
+
+### Version 1.1.0
+- Updated for WordPress 6.9 compatibility
+- Updated minimum PHP requirement to 7.4
+- Added proper plugin headers (Plugin URI, Requires at least, Requires PHP, Tested up to)
+- Enhanced WordPress coding standards compliance
+- Verified compatibility with WordPress 6.9 features
+
+### Version 1.0.0
+- Initial release
 
 ## 🙏 Acknowledgements
 

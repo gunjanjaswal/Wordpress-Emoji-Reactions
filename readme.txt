@@ -3,9 +3,9 @@ Contributors: gunjanjaswal
 Donate link: https://buymeacoffee.com/gunjanjaswal
 Tags: emoji, reactions, feedback, comments, social
 Requires at least: 5.0
-Tested up to: 6.8
-Stable tag: 1.0.0
-Requires PHP: 7.0
+Tested up to: 6.9
+Stable tag: 1.1.1
+Requires PHP: 7.4
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -91,10 +91,28 @@ Yes, basic statistics are available on the plugin settings page. More detailed a
 
 == Changelog ==
 
+= 1.1.1 =
+* Fixed WordPress coding standards: Added proper prefixes to all global variables
+* Variable names now use 'emojfopo_' prefix for compliance
+* Improved code quality and WordPress.org plugin check compatibility
+
+= 1.1.0 =
+* Updated for WordPress 6.9 compatibility
+* Updated minimum PHP requirement to 7.4
+* Added proper plugin headers (Plugin URI, Requires at least, Requires PHP, Tested up to)
+* Enhanced WordPress coding standards compliance
+* Verified compatibility with WordPress 6.9 features
+
 = 1.0.0 =
 * Initial release
 
 == Upgrade Notice ==
+
+= 1.1.1 =
+Coding standards fix for WordPress.org plugin check compliance.
+
+= 1.1.0 =
+Compatibility update for WordPress 6.9. Requires PHP 7.4 or higher.
 
 = 1.0.0 =
 Initial release of WP Emoji Reactions.
